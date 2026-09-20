@@ -79,15 +79,13 @@ Air-Quality-Index-using--GA-KELM/
 - Scikit-learn
 - Matplotlib
 - Seaborn
-- Keras
-- TensorFlow
 - Jupyter Notebook
 - Genetic Algorithm
 - Kernel Extreme Learning Machine
 
 ## Installation
 
-The repository contains the original project environment with legacy package versions.
+The project has been updated for Python 3.11 with modern, compatible machine-learning dependencies.
 
 ### 1. Clone the repository
 
@@ -104,7 +102,7 @@ cd AIR-QUALITY
 
 ### 3. Create a virtual environment
 
-The original project was developed using Python 3.7.
+The current version is designed for Python 3.11.
 
 ```bash
 python -m venv venv
@@ -122,7 +120,7 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-> Note: The pinned dependencies in `requirements.txt` are from the original project environment and include older versions of TensorFlow, Keras, NumPy, Pandas, and Scikit-learn. A modern Python environment may require updated dependencies.
+The current `requirements.txt` contains Python 3.11-compatible dependencies. The legacy Python 3.7 installer has been removed from the repository.
 
 ## Running the Notebook
 
