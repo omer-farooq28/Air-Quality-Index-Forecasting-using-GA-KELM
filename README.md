@@ -181,12 +181,3 @@ Possible next steps include:
 - Building a simple interface for AQI prediction.
 - Deploying the trained model as a web application or API.
 
-## Author
-
-**Mohammed Omer Farooq**
-
-GitHub: https://github.com/omer-farooq28
-
-## License
-
-This project was developed for academic and educational purposes.
