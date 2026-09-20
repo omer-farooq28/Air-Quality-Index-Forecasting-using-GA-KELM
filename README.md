@@ -1,45 +1,38 @@
 # Air Quality Index Prediction using GA-KELM
 
-This project focuses on predicting the **Air Quality Index (AQI)** from air-quality measurements using a **Genetic Algorithm-based Kernel Extreme Learning Machine (GA-KELM)**.
+This project is about predicting the **Air Quality Index (AQI)** from air-quality measurements using a **Genetic Algorithm-based Kernel Extreme Learning Machine (GA-KELM)**.
 
-The notebook has been updated to run with **Python 3.11** and uses a cleaner, modern scikit-learn workflow. It also compares GA-KELM with **Support Vector Regression (SVR)** so the model performance can be viewed side by side.
+The project uses an Ahmedabad air-quality dataset and compares GA-KELM with **Support Vector Regression (SVR)**. The notebook is set up for **Python 3.11** and keeps the workflow simple: prepare the data, train the models, measure their errors, and compare the results.
 
-## What the project does
+## Project workflow
 
-The workflow in the notebook is straightforward:
+The notebook follows these steps:
 
 1. Load the Ahmedabad air-quality dataset.
 2. Handle missing values during preprocessing.
-3. Select pollutant measurements as model inputs and AQI as the target.
-4. Scale the data using MinMaxScaler.
+3. Select pollutant measurements as input features and AQI as the target.
+4. Normalize the input and target values using MinMaxScaler.
 5. Split the data into training and testing sets.
-6. Train an SVR baseline.
+6. Train SVR as the baseline model.
 7. Train the GA-KELM model.
-8. Calculate MSE and RMSE on the normalized target values.
-9. Compare both models using a results table and bar chart.
+8. Calculate MSE and RMSE.
+9. Compare the model results using a table and chart.
 
-The main goal is to build and evaluate an AQI prediction model rather than simply classify air-quality categories.
-
-## Model
+## Models
 
 ### GA-KELM
 
-GA-KELM combines two ideas:
+GA-KELM combines a Kernel Extreme Learning Machine with a Genetic Algorithm. The Genetic Algorithm searches for suitable model parameters, while the kernel-based ELM is used to learn the relationship between the pollutant measurements and AQI.
 
-- **Genetic Algorithm (GA):** searches for suitable model parameters.
-- **Kernel Extreme Learning Machine (KELM):** uses a kernel-based approach to learn nonlinear relationships.
+### SVR
 
-The Genetic Algorithm uses prediction error as its fitness measure and searches for parameters that improve the KELM model.
+Support Vector Regression is used as the baseline model. Including SVR makes it easier to compare the proposed GA-KELM approach with a commonly used regression method.
 
-### SVR baseline
+## Dataset
 
-**Support Vector Regression (SVR)** is included as a baseline model. This gives the project a direct comparison between a standard regression approach and the proposed GA-KELM model.
+The project uses air-quality data for **Ahmedabad**.
 
-## Input data
-
-The dataset contains air-quality measurements collected for **Ahmedabad**.
-
-The notebook works with pollutant-related features including:
+The main input features include:
 
 - PM2.5
 - PM10
@@ -54,50 +47,49 @@ The notebook works with pollutant-related features including:
 - Toluene
 - Xylene
 
-The prediction target is:
+The prediction target is **AQI**.
 
-- **AQI**
+## Results
 
-## Dataset
-
-The repository includes:
-
-- `Dataset/Dataset.csv` — dataset used by the notebook
-- `Dataset/testData.csv` — test data available in the project
-
-## Current results
-
-The latest saved notebook output reports the following results on the **normalized target scale**:
+The current notebook reports the following results on the **normalized target scale**:
 
 | Algorithm | MSE | RMSE |
 |---|---:|---:|
 | SVR | 0.025847 | 0.160771 |
 | GA-KELM | 0.019424 | 0.139371 |
 
-These values are calculated before converting the target back to the original AQI scale. This keeps the evaluation consistent with the normalized values used during model training.
+The notebook also contains a bar chart that makes the MSE and RMSE comparison easier to view.
 
-The notebook also includes a bar chart comparing the MSE and RMSE of SVR and GA-KELM.
+These values are calculated on normalized AQI values. They should therefore be interpreted as normalized-scale errors, not as direct AQI-point errors.
 
-## Project structure
+## Repository structure
 
 ```text
 Air-Quality-Index-using--GA-KELM/
 │
 ├── AIR-QUALITY/
-│   ├── Dataset/
+│   ├── data/
 │   │   ├── Dataset.csv
 │   │   └── testData.csv
-│   ├── model/
+│   │
+│   ├── models/
 │   │   ├── elm.npy
 │   │   └── extension_weights.hdf5
-│   ├── AirQuality.ipynb
-│   ├── AirQuality.html
-│   ├── GAKELM.py
-│   ├── requirements.txt
-│   └── .gitignore
+│   │
+│   ├── notebooks/
+│   │   ├── AirQuality.ipynb
+│   │   └── AirQuality.html
+│   │
+│   ├── src/
+│   │   └── GAKELM.py
+│   │
+│   ├── .gitignore
+│   └── requirements.txt
 │
 └── README.md
 ```
+
+The folders are separated by purpose so that the dataset, trained model files, notebooks, and Python source code are easier to find and maintain.
 
 ## Technologies used
 
@@ -109,6 +101,7 @@ Air-Quality-Index-using--GA-KELM/
 - Jupyter Notebook
 - Genetic Algorithm
 - Kernel Extreme Learning Machine
+- Support Vector Regression
 
 ## Setup
 
@@ -131,7 +124,7 @@ cd AIR-QUALITY
 py -3.11 -m venv venv
 ```
 
-On Windows, activate it with:
+Activate it on Windows:
 
 ```bash
 venv\Scripts\activate
@@ -143,53 +136,50 @@ venv\Scripts\activate
 py -3.11 -m pip install -r requirements.txt
 ```
 
-### 5. Start Jupyter
+### 5. Start Jupyter Notebook
 
-```jupyter notebook```
+```bash
+jupyter notebook
+```
 
 Open:
 
 ```text
-AirQuality.ipynb
+notebooks/AirQuality.ipynb
 ```
 
-Run the cells in order so that the preprocessing, SVR model, GA-KELM model, metrics, and comparison chart are generated correctly.
+Run the notebook cells in order.
 
 ## Evaluation metrics
 
-The notebook uses two regression metrics:
+**MSE (Mean Squared Error)** measures the average squared difference between actual and predicted values.
 
-**Mean Squared Error (MSE)**
+**RMSE (Root Mean Squared Error)** is the square root of MSE. It is easier to interpret because it uses the same scale as the values being evaluated.
 
-MSE measures the average squared difference between the actual and predicted AQI values.
+The current notebook calculates both metrics using the normalized AQI target.
 
-**Root Mean Squared Error (RMSE)**
-
-RMSE is the square root of MSE and is easier to interpret because it remains on the same scale as the evaluated target values.
-
-In the current notebook, both metrics are calculated on the normalized target values.
-
-## Key files
+## Important files
 
 | File | Purpose |
 |---|---|
-| `AirQuality.ipynb` | Main notebook containing preprocessing, training, evaluation, and comparison |
-| `AirQuality.html` | HTML version of the notebook |
-| `GAKELM.py` | GA-KELM implementation |
-| `Dataset/Dataset.csv` | Main dataset |
-| `Dataset/testData.csv` | Test data |
+| `data/Dataset.csv` | Main Ahmedabad air-quality dataset |
+| `data/testData.csv` | Test data included in the project |
+| `notebooks/AirQuality.ipynb` | Main notebook for preprocessing, training and evaluation |
+| `notebooks/AirQuality.html` | HTML version of the notebook |
+| `src/GAKELM.py` | GA-KELM implementation |
+| `models/` | Stored model-related files |
 | `requirements.txt` | Python dependencies |
 
 ## Future improvements
 
-Some useful next steps for the project are:
+Possible next steps include:
 
-- Tune the GA-KELM search further.
-- Experiment with feature selection and preprocessing.
-- Evaluate additional regression models.
-- Report both normalized metrics and AQI-scale metrics when presenting model performance.
-- Build a simple interface where a user can enter pollutant values and receive an AQI prediction.
-- Deploy the trained model as a small web application or API.
+- Further tuning of the Genetic Algorithm.
+- Testing additional regression models.
+- Trying feature-selection techniques.
+- Reporting both normalized and original AQI-scale metrics.
+- Building a simple interface for AQI prediction.
+- Deploying the trained model as a web application or API.
 
 ## Author
 
