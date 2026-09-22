@@ -1,38 +1,40 @@
 # Air Quality Index Prediction using GA-KELM
 
-This project is about predicting the **Air Quality Index (AQI)** from air-quality measurements using a **Genetic Algorithm-based Kernel Extreme Learning Machine (GA-KELM)**.
+A machine learning project for **Air Quality Index (AQI) prediction** using a **Genetic Algorithm-based Kernel Extreme Learning Machine (GA-KELM)**. The project uses Ahmedabad air-quality data and evaluates GA-KELM against **Support Vector Regression (SVR)** as a baseline.
 
-The project uses an Ahmedabad air-quality dataset and compares GA-KELM with **Support Vector Regression (SVR)**. The notebook is set up for **Python 3.11** and keeps the workflow simple: prepare the data, train the models, measure their errors, and compare the results.
+This repository is developed as an **academic project** demonstrating data preprocessing, regression modelling, optimization, and model evaluation for AQI prediction.
 
-## Project workflow
+## Project Overview
 
-The notebook follows these steps:
+The project investigates a GA-KELM-based regression approach for predicting AQI from pollutant measurements.
+
+### Workflow
 
 1. Load the Ahmedabad air-quality dataset.
 2. Handle missing values during preprocessing.
 3. Select pollutant measurements as input features and AQI as the target.
-4. Normalize the input and target values using MinMaxScaler.
+4. Normalize the input and target values using `MinMaxScaler`.
 5. Split the data into training and testing sets.
 6. Train SVR as the baseline model.
 7. Train the GA-KELM model.
 8. Calculate MSE and RMSE.
-9. Compare the model results using a table and chart.
+9. Compare the model results using tables and visualizations.
 
 ## Models
 
 ### GA-KELM
 
-GA-KELM combines a Kernel Extreme Learning Machine with a Genetic Algorithm. The Genetic Algorithm searches for suitable model parameters, while the kernel-based ELM is used to learn the relationship between the pollutant measurements and AQI.
+GA-KELM combines a **Kernel Extreme Learning Machine (KELM)** with a **Genetic Algorithm (GA)**. The Genetic Algorithm searches for suitable model parameters, while KELM is used for nonlinear regression between pollutant measurements and AQI.
 
 ### SVR
 
-Support Vector Regression is used as the baseline model. Including SVR makes it easier to compare the proposed GA-KELM approach with a commonly used regression method.
+**Support Vector Regression (SVR)** is used as the baseline regression model for comparison.
 
 ## Dataset
 
-The project uses air-quality data for **Ahmedabad**.
+The project uses an **Ahmedabad air-quality dataset**.
 
-The main input features include:
+### Input Features
 
 - PM2.5
 - PM10
@@ -47,51 +49,46 @@ The main input features include:
 - Toluene
 - Xylene
 
-The prediction target is **AQI**.
+### Target
+
+- **AQI**
 
 ## Results
 
-The current notebook reports the following results on the **normalized target scale**:
+The current notebook reports the following results on the **normalized AQI target scale**:
 
 | Algorithm | MSE | RMSE |
 |---|---:|---:|
 | SVR | 0.025847 | 0.160771 |
 | GA-KELM | 0.019424 | 0.139371 |
 
-The notebook also contains a bar chart that makes the MSE and RMSE comparison easier to view.
+Because the target was normalized before evaluation, these values represent **normalized-scale errors** and should not be interpreted directly as AQI-point errors.
 
-These values are calculated on normalized AQI values. They should therefore be interpreted as normalized-scale errors, not as direct AQI-point errors.
+## Project Structure
 
-## Repository structure
-
-```text
+~~~text
 Air-Quality-Index-using--GA-KELM/
 │
-├── AIR-QUALITY/
-│   ├── data/
-│   │   ├── Dataset.csv
-│   │   └── testData.csv
-│   │
-│   ├── models/
-│   │   ├── elm.npy
-│   │   └── extension_weights.hdf5
-│   │
-│   ├── notebooks/
-│   │   ├── AirQuality.ipynb
-│   │   └── AirQuality.html
-│   │
-│   ├── src/
-│   │   └── GAKELM.py
-│   │
-│   ├── .gitignore
-│   └── requirements.txt
+├── dataset/
+│   ├── Dataset.csv
+│   └── testData.csv
 │
+├── models/
+│   ├── elm.npy
+│   └── extension_weights.hdf5
+│
+├── notebooks/
+│   └── AirQuality.ipynb
+│
+├── src/
+│   └── GAKELM.py
+│
+├── .gitignore
+├── requirements.txt
 └── README.md
-```
+~~~
 
-The folders are separated by purpose so that the dataset, trained model files, notebooks, and Python source code are easier to find and maintain.
-
-## Technologies used
+## Technologies Used
 
 - Python 3.11
 - NumPy
@@ -103,81 +100,94 @@ The folders are separated by purpose so that the dataset, trained model files, n
 - Kernel Extreme Learning Machine
 - Support Vector Regression
 
-## Setup
+## Installation
 
 ### 1. Clone the repository
 
-```bash
+~~~bash
 git clone https://github.com/omer-farooq28/Air-Quality-Index-using--GA-KELM.git
 cd Air-Quality-Index-using--GA-KELM
-```
+~~~
 
-### 2. Open the project folder
+### 2. Create a Python 3.11 virtual environment
 
-```bash
-cd AIR-QUALITY
-```
-
-### 3. Create a Python 3.11 virtual environment
-
-```bash
+~~~bash
 py -3.11 -m venv venv
-```
+~~~
 
-Activate it on Windows:
+Activate the environment on Windows:
 
-```bash
+~~~bash
 venv\Scripts\activate
-```
+~~~
 
-### 4. Install the dependencies
+### 3. Install dependencies
 
-```bash
+~~~bash
 py -3.11 -m pip install -r requirements.txt
-```
+~~~
 
-### 5. Start Jupyter Notebook
+### 4. Launch Jupyter Notebook
 
-```bash
+~~~bash
 jupyter notebook
-```
+~~~
 
 Open:
 
-```text
+~~~text
 notebooks/AirQuality.ipynb
-```
+~~~
 
-Run the notebook cells in order.
+Run the notebook cells in sequence to reproduce the preprocessing, training, evaluation, and comparison workflow.
 
-## Evaluation metrics
+## Evaluation Metrics
 
-**MSE (Mean Squared Error)** measures the average squared difference between actual and predicted values.
+### Mean Squared Error (MSE)
 
-**RMSE (Root Mean Squared Error)** is the square root of MSE. It is easier to interpret because it uses the same scale as the values being evaluated.
+MSE measures the average squared difference between actual and predicted target values.
 
-The current notebook calculates both metrics using the normalized AQI target.
+### Root Mean Squared Error (RMSE)
 
-## Important files
+RMSE is the square root of MSE and expresses prediction error on the same scale as the evaluated target values.
 
-| File | Purpose |
+In the current implementation, both metrics are calculated using the normalized AQI target.
+
+## Important Files
+
+| File | Description |
 |---|---|
-| `data/Dataset.csv` | Main Ahmedabad air-quality dataset |
-| `data/testData.csv` | Test data included in the project |
-| `notebooks/AirQuality.ipynb` | Main notebook for preprocessing, training and evaluation |
-| `notebooks/AirQuality.html` | HTML version of the notebook |
+| `dataset/Dataset.csv` | Main Ahmedabad air-quality dataset |
+| `dataset/testData.csv` | Test dataset |
+| `notebooks/AirQuality.ipynb` | Main experimentation and evaluation notebook |
 | `src/GAKELM.py` | GA-KELM implementation |
 | `models/` | Stored model-related files |
 | `requirements.txt` | Python dependencies |
 
-## Future improvements
+## Future Improvements
 
-Possible next steps include:
+Possible extensions include:
 
-- Further tuning of the Genetic Algorithm.
-- Testing additional regression models.
-- Trying feature-selection techniques.
-- Reporting both normalized and original AQI-scale metrics.
-- Building a simple interface for AQI prediction.
-- Deploying the trained model as a web application or API.
+- Further Genetic Algorithm tuning
+- Feature-selection experiments
+- Evaluation on the original AQI scale
+- Comparison with additional regression and deep-learning models
+- Improved model validation strategies
+- Development of an AQI prediction web application
+- Deployment of the trained model through an API
 
+## Academic Project
+
+This repository is developed as an **academic machine learning project** focused on **AQI prediction using GA-KELM**.
+
+It demonstrates the practical application of data preprocessing, regression modelling, optimization techniques, and performance evaluation to an environmental data prediction problem.
+
+## Author
+
+**Mohammed Omer Farooq**
+
+GitHub: [omer-farooq28](https://github.com/omer-farooq28)
+
+## License
+
+This project is intended for academic and educational purposes.
